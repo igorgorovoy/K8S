@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ddkdebugger
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ddkdebugger
+  template:
+    metadata:
+      name: ddkdebugger
+      labels:
+        app: ddkdebugger
+    spec:
+      containers:
+        - image: ddkoin/ddk_debugger:frontend
+          imagePullPolicy: Always
+          name: ddk-debugger-frontend-production
+          ports:
+            - containerPort: 4700
+        - image: ddkoin/ddk_debugger:backend
+          imagePullPolicy: Always
+          name: ddk-debugger-backend-production
+          ports:
+            - containerPort: 4701
+          env:
+          - name: BACKEND_PORT
+            value: "4701"
+
