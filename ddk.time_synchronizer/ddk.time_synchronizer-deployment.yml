@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ddk-time-synchronizer
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: ddk-time-synchronizer
+  template:
+    metadata:
+      name: ddk-time-synchronizer
+      labels:
+        app: ddk-time-synchronizer
+    spec:
+      containers:
+        - image: ddkoin/time_synchronizer
+          imagePullPolicy: Always
+          name: ddk-time-synchronizer
+          ports:
+            - containerPort: 7070
+          env:
+          - name: SERVER_PORT
+            value: "7070"
